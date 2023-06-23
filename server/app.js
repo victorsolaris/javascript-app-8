@@ -4,10 +4,9 @@ const cors = require('cors');
 const dotenv = require('dotenv');
 dotenv.config();
 
-const port = process.env.PORT
+const port = process.env.PORT || 3000;
 
 const dbService = require('./dbService');
-
 
 app.use(cors());
 app.use(express.json());
@@ -20,10 +19,21 @@ app.post('/insert', (request, response) => {
 
 // read
 
-app.get('/getALL', (request, response) => {
-    response.json({
-        success: true
-    })
+// app.get('/getALL', (request, response) => {
+//     response.json({
+//         success: true
+//     })
+// })
+
+// read
+app.get('/getAll', (request, response) => {
+    const db = dbService.getDbServiceInstance();
+
+    const result = db.getAllData();
+    
+    result
+    .then(data => response.json({data : data}))
+    .catch(err => console.log(err));
 })
 
 // update
@@ -33,4 +43,4 @@ app.get('/getALL', (request, response) => {
 
 app.listen(port, () => console.log(`This app could be running.... who knows...
 
-Listning on port ${port}`))
+Listening on port ${port}`))

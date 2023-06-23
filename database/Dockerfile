@@ -1,5 +1,5 @@
 # Use the official MySQL image as the base image
-FROM mysql:latest
+FROM mysql:5.7.42
 
 # Set environment variables for the root user and password
 ENV MYSQL_ROOT_USER=root
