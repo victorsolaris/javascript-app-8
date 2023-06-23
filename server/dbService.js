@@ -29,7 +29,7 @@ class DbService {
     async getAllData() {
         try {
             const response = await new Promise((resolve, reject) => {
-                const query = "SELECT * FROM names where id;";
+                const query = "SELECT * FROM names where id ;";
 
                 pool.query(query, (err, results) => {
                     if (err) reject(new Error(err.message));
@@ -43,7 +43,26 @@ class DbService {
         }
     }
     
+    async insertNewName(name) {
+        try {
+            const dateAdded = new Date();
+            const insertId = await new Promise((resolve, reject) => {
+                const query = "INSERT INTO names (name, date_added) VALUES (?,?);";
 
+                pool.query(query, [name, dateAdded] , (err, result) => {
+                    if (err) reject(new Error(err.message));
+                    resolve(result.insertId);
+                });
+            });
+            return {
+                id : insertId,
+                name : name,
+                dateAdded : dateAdded
+            };
+        } catch (error) {
+            console.log(error);
+        }
+    }
 }
 
 module.exports = DbService;
