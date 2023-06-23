@@ -14,16 +14,15 @@ app.use(express.urlencoded({ extended : false }));
 
 // create
 app.post('/insert', (request, response) => {
+    const { name } = request.body;
+    const db = dbService.getDbServiceInstance();
+    
+    const result = db.insertNewName(name);
 
+    result
+    .then(data => response.json({ data: data}))
+    .catch(err => console.log(err));
 });
-
-// read
-
-// app.get('/getALL', (request, response) => {
-//     response.json({
-//         success: true
-//     })
-// })
 
 // read
 app.get('/getAll', (request, response) => {
@@ -36,9 +35,8 @@ app.get('/getAll', (request, response) => {
     .catch(err => console.log(err));
 })
 
-// update
 
-// delete
+
 
 
 app.listen(port, () => console.log(`This app could be running.... who knows...

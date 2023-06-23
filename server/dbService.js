@@ -29,7 +29,7 @@ class DbService {
     async getAllData() {
         try {
             const response = await new Promise((resolve, reject) => {
-                const query = "SELECT * FROM first_table;";
+                const query = "SELECT * FROM names where id;";
 
                 pool.query(query, (err, results) => {
                     if (err) reject(new Error(err.message));
@@ -42,6 +42,8 @@ class DbService {
             console.log(error);
         }
     }
+    
+
 }
 
 module.exports = DbService;
