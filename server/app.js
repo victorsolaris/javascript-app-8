@@ -36,9 +36,6 @@ app.get('/getAll', (request, response) => {
 })
 
 
-
-
-
 app.listen(port, () => console.log(`This app could be running.... who knows...
 
 Listening on port ${port}`))
